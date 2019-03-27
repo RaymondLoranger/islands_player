@@ -12,7 +12,7 @@ defmodule Islands.Player do
   """
 
   alias __MODULE__
-  alias Islands.{Board, Guesses}
+  alias Islands.{Board, Guesses, Island}
 
   @derive {Poison.Encoder, only: [:name]}
   @derive {Jason.Encoder, only: [:name]}
@@ -31,4 +31,12 @@ defmodule Islands.Player do
     do: %Player{name: name, pid: pid}
 
   def new(_name, _pid), do: {:error, :invalid_player_args}
+
+  @spec forested_types(t) :: [Island.type()]
+  def forested_types(%Player{} = player) do
+    player.board.islands
+    |> Map.values()
+    |> Enum.filter(&Island.forested?/1)
+    |> Enum.map(& &1.type)
+  end
 end

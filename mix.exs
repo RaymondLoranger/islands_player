@@ -49,6 +49,7 @@ defmodule Islands.Player.MixProject do
       {:poison, "~> 3.0"},
       {:jason, "~> 1.0"},
       {:persist_config, "~> 0.1"},
+      {:islands_island, path: "../islands_island"},
       {:islands_guesses, path: "../islands_guesses"},
       {:islands_board, path: "../islands_board"},
       {:earmark, "~> 1.0", only: :dev},
