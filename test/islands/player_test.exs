@@ -36,17 +36,17 @@ defmodule Islands.PlayerTest do
 
     {:ok,
      players: %{sue: sue, ben: ben},
-     pid: this,
-     json: %{poison: poison, jason: jason, decoded: decoded}}
+     json: %{poison: poison, jason: jason, decoded: decoded},
+     pid: this}
   end
 
   describe "A player struct" do
-    test "can be encoded/decoded by Poison", %{players: players, json: json} do
+    test "can be encoded by Poison", %{players: players, json: json} do
       assert Poison.encode!(players.sue) == json.poison
       assert Poison.decode!(json.poison) == json.decoded
     end
 
-    test "can be encoded/decoded by Jason", %{players: players, json: json} do
+    test "can be encoded by Jason", %{players: players, json: json} do
       assert Jason.encode!(players.sue) == json.jason
       assert Jason.decode!(json.jason) == json.decoded
     end
