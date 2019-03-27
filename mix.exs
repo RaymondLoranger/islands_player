@@ -4,7 +4,7 @@ defmodule Islands.Player.MixProject do
   def project do
     [
       app: :islands_player,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       name: "Islands Player",
@@ -49,9 +49,8 @@ defmodule Islands.Player.MixProject do
       {:poison, "~> 3.0"},
       {:jason, "~> 1.0"},
       {:persist_config, "~> 0.1"},
-      {:islands_island, path: "../islands_island"},
-      {:islands_guesses, path: "../islands_guesses"},
-      {:islands_board, path: "../islands_board"},
+      {:islands_guesses, "~> 0.1"},
+      {:islands_board, "~> 0.1"},
       {:earmark, "~> 1.0", only: :dev},
       {:ex_doc, "~> 0.14", only: :dev, runtime: false},
       {:dialyxir, "~> 0.5", only: :dev, runtime: false}
