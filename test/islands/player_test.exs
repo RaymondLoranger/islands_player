@@ -10,6 +10,7 @@ defmodule Islands.PlayerTest do
 
     sue = %Player{
       name: "Sue",
+      gender: :f,
       pid: this,
       board: Board.new(),
       guesses: Guesses.new()
@@ -17,21 +18,23 @@ defmodule Islands.PlayerTest do
 
     ben = %Player{
       name: "Ben",
+      gender: :m,
       pid: nil,
       board: Board.new(),
       guesses: Guesses.new()
     }
 
     poison =
-      ~s<{\"name\":\"Sue\",\"guesses\":{\"misses\":[],\"hits\":[]},\"board\":{\"misses\":[],\"islands\":{}}}>
+      ~s<{\"name\":\"Sue\",\"guesses\":{\"misses\":[],\"hits\":[]},\"gender\":\"f\",\"board\":{\"misses\":[],\"islands\":{}}}>
 
     jason =
-      ~s<{\"name\":\"Sue\",\"board\":{\"islands\":{},\"misses\":[]},\"guesses\":{\"hits\":[],\"misses\":[]}}>
+      ~s<{\"name\":\"Sue\",\"gender\":\"f\",\"board\":{\"islands\":{},\"misses\":[]},\"guesses\":{\"hits\":[],\"misses\":[]}}>
 
     decoded = %{
       "board" => %{"islands" => %{}, "misses" => []},
       "guesses" => %{"hits" => [], "misses" => []},
-      "name" => "Sue"
+      "name" => "Sue",
+      "gender" => "f"
     }
 
     {:ok,
@@ -54,12 +57,12 @@ defmodule Islands.PlayerTest do
 
   describe "Player.new/1" do
     test "returns %Player{} given valid args", %{players: players, pid: that} do
-      assert Player.new("Sue", that) == players.sue
-      assert Player.new("Ben", nil) == players.ben
+      assert Player.new("Sue", :f, that) == players.sue
+      assert Player.new("Ben", :m, nil) == players.ben
     end
 
     test "returns {:error, ...} given invalid args" do
-      assert Player.new('Jim', nil) == {:error, :invalid_player_args}
+      assert Player.new('Jim', :m, nil) == {:error, :invalid_player_args}
     end
   end
 end

@@ -14,21 +14,28 @@ defmodule Islands.Player do
   alias __MODULE__
   alias Islands.{Board, Guesses}
 
-  @derive {Poison.Encoder, only: [:name, :board, :guesses]}
-  @derive {Jason.Encoder, only: [:name, :board, :guesses]}
-  @enforce_keys [:name, :pid]
-  defstruct name: "", pid: nil, board: Board.new(), guesses: Guesses.new()
+  @derive {Poison.Encoder, only: [:name, :gender, :board, :guesses]}
+  @derive {Jason.Encoder, only: [:name, :gender, :board, :guesses]}
+  @enforce_keys [:name, :gender, :pid]
+  defstruct name: "",
+            gender: nil,
+            pid: nil,
+            board: Board.new(),
+            guesses: Guesses.new()
 
   @type t :: %Player{
           name: String.t(),
+          gender: :f | :m,
           pid: pid | nil,
           board: Board.t(),
           guesses: Guesses.t()
         }
 
-  @spec new(String.t(), pid | nil) :: t | {:error, atom}
-  def new(name, pid) when is_binary(name) and (is_pid(pid) or is_nil(pid)),
-    do: %Player{name: name, pid: pid}
+  @spec new(String.t(), :f | :m, pid | nil) :: t | {:error, atom}
+  def new(name, gender, pid)
+      when is_binary(name) and gender in [:f, :m] and
+             (is_pid(pid) or is_nil(pid)),
+      do: %Player{name: name, gender: gender, pid: pid}
 
-  def new(_name, _pid), do: {:error, :invalid_player_args}
+  def new(_name, _gender, _pid), do: {:error, :invalid_player_args}
 end
