@@ -14,17 +14,18 @@ defmodule Islands.Player do
   alias __MODULE__
   alias Islands.{Board, Guesses}
 
-  @type gender :: :f | :m
+  @genders [:f, :m]
 
   @derive {Poison.Encoder, only: [:name, :gender, :board, :guesses]}
   @derive {Jason.Encoder, only: [:name, :gender, :board, :guesses]}
   @enforce_keys [:name, :gender, :pid]
-  defstruct name: "",
+  defstruct name: nil,
             gender: nil,
             pid: nil,
             board: Board.new(),
             guesses: Guesses.new()
 
+  @type gender :: :f | :m
   @type t :: %Player{
           name: String.t(),
           gender: gender,
@@ -35,7 +36,7 @@ defmodule Islands.Player do
 
   @spec new(String.t(), gender, pid | nil) :: t | {:error, atom}
   def new(name, gender, pid)
-      when is_binary(name) and gender in [:f, :m] and
+      when is_binary(name) and gender in @genders and
              (is_pid(pid) or is_nil(pid)),
       do: %Player{name: name, gender: gender, pid: pid}
 

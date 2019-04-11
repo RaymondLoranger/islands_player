@@ -4,7 +4,7 @@ defmodule Islands.Player.MixProject do
   def project do
     [
       app: :islands_player,
-      version: "0.1.5",
+      version: "0.1.6",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       name: "Islands Player",
@@ -46,12 +46,11 @@ defmodule Islands.Player.MixProject do
     [
       {:mix_tasks,
        github: "RaymondLoranger/mix_tasks", only: :dev, runtime: false},
-      # {:poison, "~> 3.0"},
       {:poison, "~> 4.0"},
       {:jason, "~> 1.0"},
       {:persist_config, "~> 0.1"},
-      {:islands_guesses, "~> 0.1"},
       {:islands_board, "~> 0.1"},
+      {:islands_guesses, "~> 0.1"},
       {:earmark, "~> 1.0", only: :dev},
       {:ex_doc, "~> 0.14", only: :dev, runtime: false},
       {:dialyxir, "~> 0.5", only: :dev, runtime: false}
