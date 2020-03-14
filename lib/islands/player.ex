@@ -12,19 +12,26 @@ defmodule Islands.Player do
   """
 
   alias __MODULE__
+  alias Islands.{Board, Guesses}
 
   @genders [:f, :m]
 
-  @derive {Poison.Encoder, only: [:name, :gender]}
-  @derive {Jason.Encoder, only: [:name, :gender]}
+  @derive {Poison.Encoder, only: [:name, :gender, :board, :guesses]}
+  @derive {Jason.Encoder, only: [:name, :gender, :board, :guesses]}
   @enforce_keys [:name, :gender, :pid]
-  defstruct [:name, :gender, :pid]
+  defstruct name: nil,
+            gender: nil,
+            pid: nil,
+            board: Board.new(),
+            guesses: Guesses.new()
 
   @type gender :: :f | :m
   @type t :: %Player{
           name: String.t(),
           gender: gender,
-          pid: pid | nil
+          pid: pid | nil,
+          board: Board.t(),
+          guesses: Guesses.t()
         }
 
   @spec new(String.t(), gender, pid | nil) :: t | {:error, atom}
