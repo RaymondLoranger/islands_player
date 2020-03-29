@@ -19,19 +19,15 @@ defmodule Islands.Player do
   @derive {Poison.Encoder, only: [:name, :gender, :board, :guesses]}
   @derive {Jason.Encoder, only: [:name, :gender, :board, :guesses]}
   @enforce_keys [:name, :gender, :pid]
-  defstruct name: nil,
-            gender: nil,
-            pid: nil,
-            board: Board.new(),
-            guesses: Guesses.new()
+  defstruct [:name, :gender, :pid, :board, :guesses]
 
   @type gender :: :f | :m
   @type t :: %Player{
           name: String.t(),
           gender: gender,
           pid: pid | nil,
-          board: Board.t(),
-          guesses: Guesses.t()
+          board: Board.t() | nil,
+          guesses: Guesses.t() | nil
         }
 
   @spec new(String.t(), gender, pid | nil) :: t | {:error, atom}

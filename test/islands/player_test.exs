@@ -1,7 +1,7 @@
 defmodule Islands.PlayerTest do
   use ExUnit.Case, async: true
 
-  alias Islands.{Board, Guesses, Player}
+  alias Islands.Player
 
   doctest Player
 
@@ -12,27 +12,25 @@ defmodule Islands.PlayerTest do
       name: "Sue",
       gender: :f,
       pid: this,
-      board: Board.new(),
-      guesses: Guesses.new()
+      board: nil,
+      guesses: nil
     }
 
     ben = %Player{
       name: "Ben",
       gender: :m,
       pid: nil,
-      board: Board.new(),
-      guesses: Guesses.new()
+      board: nil,
+      guesses: nil
     }
 
-    poison =
-      ~s<{\"name\":\"Sue\",\"guesses\":{\"misses\":[],\"hits\":[]},\"gender\":\"f\",\"board\":{\"misses\":[],\"islands\":{}}}>
+    poison = ~s<{"name":"Sue","guesses":null,"gender":"f","board":null}>
 
-    jason =
-      ~s<{\"name\":\"Sue\",\"gender\":\"f\",\"board\":{\"islands\":{},\"misses\":[]},\"guesses\":{\"hits\":[],\"misses\":[]}}>
+    jason = ~s<{"name":"Sue","gender":"f","board":null,"guesses":null}>
 
     decoded = %{
-      "board" => %{"islands" => %{}, "misses" => []},
-      "guesses" => %{"hits" => [], "misses" => []},
+      "board" => nil,
+      "guesses" => nil,
       "name" => "Sue",
       "gender" => "f"
     }
