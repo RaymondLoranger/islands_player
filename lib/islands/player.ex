@@ -14,16 +14,13 @@ defmodule Islands.Player do
   alias __MODULE__
   alias Islands.{Board, Guesses}
 
+  @default_options %{basic: false}
   @genders [:f, :m]
 
   @derive {Poison.Encoder, only: [:name, :gender, :board, :guesses]}
   @derive {Jason.Encoder, only: [:name, :gender, :board, :guesses]}
-  @enforce_keys [:name, :gender, :pid]
-  defstruct name: nil,
-            gender: nil,
-            pid: nil,
-            board: Board.new(),
-            guesses: Guesses.new()
+  @enforce_keys [:name, :gender, :pid, :board, :guesses]
+  defstruct [:name, :gender, :pid, :board, :guesses]
 
   @type gender :: :f | :m
   @type t :: %Player{
@@ -34,20 +31,35 @@ defmodule Islands.Player do
           guesses: Guesses.t() | nil
         }
 
-  @spec new(String.t(), gender, pid | nil) :: t | {:error, atom}
-  def new(name, gender, pid)
-      when is_binary(name) and gender in @genders and
-             (is_pid(pid) or is_nil(pid)),
-      do: %Player{name: name, gender: gender, pid: pid}
+  @spec new(String.t(), gender, pid | nil, Keyword.t()) :: t | {:error, atom}
+  def new(name, gender, pid, options \\ [])
 
-  def new(_name, _gender, _pid), do: {:error, :invalid_player_args}
-
-  @spec new(String.t(), gender, pid | nil, atom) :: t | {:error, atom}
-  def new(name, gender, pid, :basic)
-      when is_binary(name) and gender in @genders and
+  def new(name, gender, pid, options)
+      when is_binary(name) and gender in @genders and is_list(options) and
              (is_pid(pid) or is_nil(pid)) do
-    %Player{name: name, gender: gender, pid: pid, board: nil, guesses: nil}
+    %{basic: basic?} = parse(options)
+
+    %Player{
+      name: name,
+      gender: gender,
+      pid: pid,
+      board: if(basic?, do: nil, else: Board.new()),
+      guesses: if(basic?, do: nil, else: Guesses.new())
+    }
   end
 
-  def new(_name, _gender, _pid, _option), do: {:error, :invalid_player_args}
+  def new(_name, _gender, _pid, _options), do: {:error, :invalid_player_args}
+
+  ## Private functions
+
+  @spec parse(Keyword.t()) :: map
+  defp parse(options), do: parse(options, @default_options)
+
+  @spec parse(Keyword.t(), map) :: map
+  defp parse([], options), do: options
+
+  defp parse([{:basic, basic?} | rest], options) when is_boolean(basic?),
+    do: parse(rest, %{options | basic: basic?})
+
+  defp parse([_bad_option | rest], options), do: parse(rest, options)
 end

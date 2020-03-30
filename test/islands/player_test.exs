@@ -58,7 +58,9 @@ defmodule Islands.PlayerTest do
   describe "Player.new/1" do
     test "returns %Player{} given valid args", %{players: players, pid: that} do
       assert Player.new("Sue", :f, that) == players.sue
-      assert Player.new("Ben", :m, nil, :basic) == players.ben
+      assert Player.new("Sue", :f, that, basic: false) == players.sue
+      assert Player.new("Ben", :m, nil, basic: true) == players.ben
+      assert Player.new("Ben", :m, nil, basic: true, what: nil) == players.ben
     end
 
     test "returns {:error, ...} given invalid args" do
