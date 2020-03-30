@@ -19,7 +19,11 @@ defmodule Islands.Player do
   @derive {Poison.Encoder, only: [:name, :gender, :board, :guesses]}
   @derive {Jason.Encoder, only: [:name, :gender, :board, :guesses]}
   @enforce_keys [:name, :gender, :pid]
-  defstruct [:name, :gender, :pid, :board, :guesses]
+  defstruct name: nil,
+            gender: nil,
+            pid: nil,
+            board: Board.new(),
+            guesses: Guesses.new()
 
   @type gender :: :f | :m
   @type t :: %Player{
@@ -37,4 +41,13 @@ defmodule Islands.Player do
       do: %Player{name: name, gender: gender, pid: pid}
 
   def new(_name, _gender, _pid), do: {:error, :invalid_player_args}
+
+  @spec new(String.t(), gender, pid | nil, atom) :: t | {:error, atom}
+  def new(name, gender, pid, :basic)
+      when is_binary(name) and gender in @genders and
+             (is_pid(pid) or is_nil(pid)) do
+    %Player{name: name, gender: gender, pid: pid, board: nil, guesses: nil}
+  end
+
+  def new(_name, _gender, _pid, _option), do: {:error, :invalid_player_args}
 end

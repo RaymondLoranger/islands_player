@@ -4,7 +4,7 @@ defmodule Islands.Player.MixProject do
   def project do
     [
       app: :islands_player,
-      version: "0.1.11",
+      version: "0.1.12",
       lixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       name: "Islands Player",

@@ -1,7 +1,7 @@
 defmodule Islands.PlayerTest do
   use ExUnit.Case, async: true
 
-  alias Islands.Player
+  alias Islands.{Board, Guesses, Player}
 
   doctest Player
 
@@ -12,8 +12,8 @@ defmodule Islands.PlayerTest do
       name: "Sue",
       gender: :f,
       pid: this,
-      board: nil,
-      guesses: nil
+      board: Board.new(),
+      guesses: Guesses.new()
     }
 
     ben = %Player{
@@ -24,13 +24,15 @@ defmodule Islands.PlayerTest do
       guesses: nil
     }
 
-    poison = ~s<{"name":"Sue","guesses":null,"gender":"f","board":null}>
+    poison =
+      ~s<{"name":"Sue","guesses":{"misses":[],"hits":[]},"gender":"f","board":{"misses":[],"islands":{}}}>
 
-    jason = ~s<{"name":"Sue","gender":"f","board":null,"guesses":null}>
+    jason =
+      ~s<{"name":"Sue","gender":"f","board":{"islands":{},"misses":[]},"guesses":{"hits":[],"misses":[]}}>
 
     decoded = %{
-      "board" => nil,
-      "guesses" => nil,
+      "board" => %{"islands" => %{}, "misses" => []},
+      "guesses" => %{"hits" => [], "misses" => []},
       "name" => "Sue",
       "gender" => "f"
     }
@@ -56,7 +58,7 @@ defmodule Islands.PlayerTest do
   describe "Player.new/1" do
     test "returns %Player{} given valid args", %{players: players, pid: that} do
       assert Player.new("Sue", :f, that) == players.sue
-      assert Player.new("Ben", :m, nil) == players.ben
+      assert Player.new("Ben", :m, nil, :basic) == players.ben
     end
 
     test "returns {:error, ...} given invalid args" do
