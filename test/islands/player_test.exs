@@ -37,10 +37,11 @@ defmodule Islands.PlayerTest do
       "gender" => "f"
     }
 
-    {:ok,
-     players: %{sue: sue, ben: ben},
-     json: %{poison: poison, jason: jason, decoded: decoded},
-     pid: this}
+    %{
+      players: %{sue: sue, ben: ben},
+      json: %{poison: poison, jason: jason, decoded: decoded},
+      pid: this
+    }
   end
 
   describe "A player struct" do
