@@ -20,15 +20,16 @@ defmodule Islands.Player do
   defstruct [:name, :gender, :pid, :board, :guesses]
 
   @type gender :: :f | :m
+  @type name :: String.t()
   @type t :: %Player{
-          name: String.t(),
+          name: name,
           gender: gender,
           pid: pid | nil,
           board: Board.t() | nil,
           guesses: Guesses.t() | nil
         }
 
-  @spec new(String.t(), gender, pid | nil, Keyword.t()) :: t | {:error, atom}
+  @spec new(name, gender, pid | nil, Keyword.t()) :: t | {:error, atom}
   def new(name, gender, pid, options \\ [])
 
   def new(name, gender, pid, options)
