@@ -16,14 +16,6 @@ defmodule Islands.PlayerTest do
       guesses: Guesses.new()
     }
 
-    ben = %Player{
-      name: "Ben",
-      gender: :m,
-      pid: nil,
-      board: nil,
-      guesses: nil
-    }
-
     poison =
       ~s<{"name":"Sue","guesses":{"misses":[],"hits":[]},"gender":"f","board":{"misses":[],"islands":{}}}>
 
@@ -38,7 +30,7 @@ defmodule Islands.PlayerTest do
     }
 
     %{
-      players: %{sue: sue, ben: ben},
+      players: %{sue: sue},
       json: %{poison: poison, jason: jason, decoded: decoded},
       pid: this
     }
@@ -59,9 +51,6 @@ defmodule Islands.PlayerTest do
   describe "Player.new/1" do
     test "returns %Player{} given valid args", %{players: players, pid: that} do
       assert Player.new("Sue", :f, that) == players.sue
-      assert Player.new("Sue", :f, that, basic: false) == players.sue
-      assert Player.new("Ben", :m, nil, basic: true) == players.ben
-      assert Player.new("Ben", :m, nil, basic: true, what: nil) == players.ben
     end
 
     test "returns {:error, ...} given invalid args" do
