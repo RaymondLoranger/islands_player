@@ -3,7 +3,10 @@
 # └────────────────────────────────────────────────────────────────────┘
 defmodule Islands.Player do
   @moduledoc """
-  Creates a `player` struct for the _Game of Islands_.
+  Creates a player struct for the _Game of Islands_.
+
+  The player struct contains the fields `name`, `gender`, `pid`, `board` and
+  `guesses` representing the characteristics of a player in the _Game of Islands_.
 
   ##### Based on the book [Functional Web Development](https://pragprog.com/book/lhelph/functional-web-development-with-elixir-otp-and-phoenix) by Lance Halvorsen.
   """
@@ -28,6 +31,21 @@ defmodule Islands.Player do
           guesses: Guesses.t()
         }
 
+  @doc """
+  Creates a player struct from `name`, `gender` and `pid`.
+
+  ## Examples
+
+      iex> alias Islands.{Board, Guesses, Player}
+      iex> Player.new("Joe", :m, nil)
+      %Player{
+        name: "Joe",
+        gender: :m,
+        pid: nil,
+        board: Board.new(),
+        guesses: Guesses.new()
+      }
+  """
   @spec new(name, gender, pid | nil) :: t | {:error, atom}
   def new(name, gender, pid)
       when is_binary(name) and gender in @genders and

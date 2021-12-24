@@ -53,7 +53,7 @@ defmodule Islands.PlayerTest do
       assert Player.new("Sue", :f, that) == players.sue
     end
 
-    test "returns {:error, ...} given invalid args" do
+    test "returns {:error, reason} given invalid args" do
       assert Player.new('Jim', :m, nil) == {:error, :invalid_player_args}
     end
   end
