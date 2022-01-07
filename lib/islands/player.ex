@@ -21,8 +21,11 @@ defmodule Islands.Player do
   @enforce_keys [:name, :gender, :pid, :board, :guesses]
   defstruct [:name, :gender, :pid, :board, :guesses]
 
+  @typedoc "Player's gender"
   @type gender :: :f | :m
+  @typedoc "Player's name"
   @type name :: String.t()
+  @typedoc "A player struct for the Game of Islands"
   @type t :: %Player{
           name: name,
           gender: gender,
