@@ -8,7 +8,7 @@ defmodule Islands.Player do
   The player struct contains the fields `name`, `gender`, `pid`, `board` and
   `guesses` representing the characteristics of a player in the _Game of Islands_.
 
-  ##### Based on the book [Functional Web Development](https://pragprog.com/book/lhelph/functional-web-development-with-elixir-otp-and-phoenix) by Lance Halvorsen.
+  ##### Based on the book [Functional Web Development](https://pragprog.com/titles/lhelph/functional-web-development-with-elixir-otp-and-phoenix/) by Lance Halvorsen.
   """
 
   alias __MODULE__
