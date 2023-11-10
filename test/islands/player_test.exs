@@ -17,7 +17,7 @@ defmodule Islands.PlayerTest do
     }
 
     poison =
-      ~s<{"name":"Sue","guesses":{"misses":[],"hits":[]},"gender":"f","board":{"misses":[],"islands":{}}}>
+      ~s<{"guesses":{"misses":[],"hits":[]},"board":{"misses":[],"islands":{}},"gender":"f","name":"Sue"}>
 
     jason =
       ~s<{"name":"Sue","gender":"f","board":{"islands":{},"misses":[]},"guesses":{"hits":[],"misses":[]}}>
@@ -54,7 +54,7 @@ defmodule Islands.PlayerTest do
     end
 
     test "returns {:error, reason} given invalid args" do
-      assert Player.new('Jim', :m, nil) == {:error, :invalid_player_args}
+      assert Player.new(~c"Jim", :m, nil) == {:error, :invalid_player_args}
     end
   end
 end
