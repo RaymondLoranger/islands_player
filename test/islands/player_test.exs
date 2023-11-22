@@ -16,9 +16,6 @@ defmodule Islands.PlayerTest do
       guesses: Guesses.new()
     }
 
-    poison =
-      ~s<{"guesses":{"misses":[],"hits":[]},"board":{"misses":[],"islands":{}},"gender":"f","name":"Sue"}>
-
     jason =
       ~s<{"name":"Sue","gender":"f","board":{"islands":{},"misses":[]},"guesses":{"hits":[],"misses":[]}}>
 
@@ -31,17 +28,12 @@ defmodule Islands.PlayerTest do
 
     %{
       players: %{sue: sue},
-      json: %{poison: poison, jason: jason, decoded: decoded},
+      json: %{jason: jason, decoded: decoded},
       pid: this
     }
   end
 
   describe "A player struct" do
-    test "can be encoded by Poison", %{players: players, json: json} do
-      assert Poison.encode!(players.sue) == json.poison
-      assert Poison.decode!(json.poison) == json.decoded
-    end
-
     test "can be encoded by Jason", %{players: players, json: json} do
       assert Jason.encode!(players.sue) == json.jason
       assert Jason.decode!(json.jason) == json.decoded

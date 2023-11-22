@@ -16,7 +16,6 @@ defmodule Islands.Player do
 
   @genders [:f, :m]
 
-  @derive {Poison.Encoder, only: [:name, :gender, :board, :guesses]}
   @derive {Jason.Encoder, only: [:name, :gender, :board, :guesses]}
   @enforce_keys [:name, :gender, :pid, :board, :guesses]
   defstruct [:name, :gender, :pid, :board, :guesses]
