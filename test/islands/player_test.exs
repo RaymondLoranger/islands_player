@@ -46,7 +46,7 @@ defmodule Islands.PlayerTest do
     end
 
     test "returns {:error, reason} given invalid args" do
-      assert Player.new(~c"Jim", :m, nil) == {:error, :invalid_player_args}
+      assert Player.new(Jim, :m, nil) == {:error, :invalid_player_args}
     end
   end
 end
