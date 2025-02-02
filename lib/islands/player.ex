@@ -6,7 +6,7 @@ defmodule Islands.Player do
   Creates a player struct for the _Game of Islands_.
 
   The player struct contains the fields `name`, `gender`, `pid`, `board` and
-  `guesses` representing the characteristics of a player in the _Game of Islands_.
+  `guesses` representing the properties of a player in the _Game of Islands_.
 
   ##### Based on the book [Functional Web Development](https://pragprog.com/titles/lhelph/functional-web-development-with-elixir-otp-and-phoenix/) by Lance Halvorsen.
   """
@@ -16,7 +16,7 @@ defmodule Islands.Player do
 
   @genders [:f, :m]
 
-  @derive {Jason.Encoder, only: [:name, :gender, :board, :guesses]}
+  @derive {JSON.Encoder, only: [:name, :gender, :board, :guesses]}
   @enforce_keys [:name, :gender, :pid, :board, :guesses]
   defstruct [:name, :gender, :pid, :board, :guesses]
 
