@@ -5,8 +5,15 @@ defmodule Islands.Player do
   @moduledoc """
   Creates a player struct for the _Game of Islands_.
 
-  The player struct contains the fields `name`, `gender`, `pid`, `board` and
-  `guesses` representing the properties of a player in the _Game of Islands_.
+  The player struct contains the fields:
+
+    - `name`
+    - `gender`
+    - `pid`
+    - `board`
+    - `guesses`
+
+  representing the properties of a player in the _Game of Islands_.
 
   ##### Based on the book [Functional Web Development](https://pragprog.com/titles/lhelph/functional-web-development-with-elixir-otp-and-phoenix/) by Lance Halvorsen.
   """
