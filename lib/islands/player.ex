@@ -55,7 +55,7 @@ defmodule Islands.Player do
         guesses: Guesses.new()
       }
   """
-  @spec new(name, gender, pid | nil) :: t | {:error, atom}
+  @spec new(name, gender, pid | nil) :: t | {:error, :invalid_player_args}
   def new(name, gender, pid)
       when is_binary(name) and gender in @genders and
              (is_pid(pid) or is_nil(pid)) do
